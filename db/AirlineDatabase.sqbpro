@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Salgado/Desktop/AirlineDatabase.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2748"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainPERSON"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE &quot;PHONE&quot; (
+	&quot;id&quot;	INTEGER NOT NULL,
+	&quot;number&quot;	TEXT NOT NULL,
+	&quot;person_fk&quot;	INTEGER NOT NULL,
+	&quot;country_fk&quot; INTEGER NOT NULL
+	PRIMARY KEY(&quot;id&quot;),
+	FOREIGN KEY (person_fk) REFERENCES PERSON(id),
+	FOREIGN KEY (country_fk) REFERENCES COUNTRY(id)
+);</sql><current_tab id="0"/></tab_sql></sqlb_project>
