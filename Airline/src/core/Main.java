@@ -8,7 +8,12 @@ package core;
 public class Main {
     
     public static void main( String[] args){
-        System.out.println("Clase principal temporal");
+        
+        Database database = new Database();
+      
+        database.insertArtist("Artista anonimo de id "+ database.getArtistsAutoIncrementId());
+        database.selectAllArtists();
+        
     }
     
 }
