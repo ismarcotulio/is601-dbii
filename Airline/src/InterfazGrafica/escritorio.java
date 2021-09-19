@@ -21,11 +21,7 @@ public class escritorio extends javax.swing.JFrame {
         initComponents();   
         //Instancia de la clase de base de datos para iniciar la conexion y utilizar metodos de manipulacion de datos.
         this.database = new Database();
-        
         this.setLocationRelativeTo(null);
-        
-         
-        
     }
 
     /**

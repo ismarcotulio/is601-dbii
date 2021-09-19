@@ -2,6 +2,9 @@
 package core;
 
 import java.sql.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -11,6 +14,10 @@ import java.sql.*;
 public class Database {
     
     private Connection conn;
+
+    public Connection getConn() {
+        return conn;
+    }
     
     public Database(){
         this.connect();
@@ -24,6 +31,52 @@ public class Database {
             this.conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+    
+        public String[] getCountry(String country){
+        String[] guar ={null,null};
+        try{
+            PreparedStatement p = this.conn.prepareStatement("SELECT * FROM COUNTRY WHERE name='"+country+"'");
+            ResultSet re = p.executeQuery();
+            re.next();
+            guar[0] = re.getString("name");
+            guar[1] = re.getString("code");
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return guar;
+    }
+    
+    public void getCountries(JComboBox comboPais){
+        DefaultComboBoxModel modelo=new DefaultComboBoxModel();  
+        try
+        {
+            PreparedStatement p = this.conn.prepareStatement("SELECT name FROM COUNTRY");
+            ResultSet re = p.executeQuery();
+            while(re.next())
+            {
+                modelo.addElement(re.getString("name"));
+            }
+            comboPais.setModel(modelo);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    public void getRoles(JComboBox comboRol){
+        DefaultComboBoxModel modelo=new DefaultComboBoxModel();  
+        try
+        {
+            PreparedStatement p = this.conn.prepareStatement("SELECT name FROM ROLE");
+            ResultSet re = p.executeQuery();
+            while(re.next())
+            {
+                modelo.addElement(re.getString("name"));
+            }
+            comboRol.setModel(modelo);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 /*  METODO DE EJEMPLO PARA LA SELECCION DE DATOS
