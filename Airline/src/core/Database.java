@@ -79,6 +79,20 @@ public class Database {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    
+    public ResultSet getPersons(){
+        String sql = "SELECT id, firstName, secretId FROM PERSON";
+    
+        try {
+             Statement stmt  = this.conn.createStatement();
+             return stmt.executeQuery(sql);
+             
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return null;
+    }
 /*  METODO DE EJEMPLO PARA LA SELECCION DE DATOS
     --------------------------------------------------------------------------
     public void selectAllArtists(){

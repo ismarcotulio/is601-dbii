@@ -6,6 +6,9 @@
 package InterfazGrafica;
 
 import core.Database;
+import java.sql.*;
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Luis
@@ -13,6 +16,8 @@ import core.Database;
 public class EditPersona extends javax.swing.JInternalFrame {
 
     private Database database;
+    private ResultSet persons;
+   
 
     /**
      * Creates new form EditPersona
@@ -21,7 +26,20 @@ public class EditPersona extends javax.swing.JInternalFrame {
     public EditPersona(Database database) {
         initComponents();
         this.database = database;
-        this.database.test();
+        this.persons = this.database.getPersons();
+        
+        DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+        try{
+            while(this.persons.next()){
+                model.addRow(new Object[]{
+                this.persons.getInt("id"),
+                this.persons.getString("firstName"),
+                this.persons.getString("secretId")
+            });
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         
     }
 
