@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -33,6 +34,8 @@ public class NewPersona extends javax.swing.JInternalFrame {
         llenadoComboPais();
         llenadoComboRol();
         this.setLocation(100, 50);
+        String g="mario";
+        System.out.println(g.charAt(0));
     }
     
     private void llenadoComboPais(){
@@ -107,12 +110,16 @@ public class NewPersona extends javax.swing.JInternalFrame {
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         n1.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
+        n1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         n2.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
+        n2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         n3.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
+        n3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         n4.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
+        n4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         n4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 n4ActionPerformed(evt);
@@ -120,6 +127,7 @@ public class NewPersona extends javax.swing.JInternalFrame {
         });
 
         pass.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        pass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         comboRol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -364,10 +372,42 @@ public class NewPersona extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_numberKeyReleased
 
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        database.setPerson(tabla1, n1.getText(), n2.getText(), n3.getText(), n4.getText(), pass.getText(), comboPaisOrigen.getSelectedItem().toString(), comboRol.getSelectedItem().toString());
+        if("".equals(n1.getText())){
+            m1();
+            n1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+        }else if("".equals(n2.getText())){
+            m1();
+            n2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+        }else if("".equals(n3.getText())){
+            m1();
+            n3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+        }else if("".equals(n4.getText())){
+            m1();
+            n4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+        }else if("".equals(pass.getText())){
+            m1();
+            pass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+        }else{
+            m1();
+            if(database.setPerson(tabla1, n1.getText(), n2.getText(), n3.getText(), n4.getText(), pass.getText(), comboPaisOrigen.getSelectedItem().toString(), comboRol.getSelectedItem().toString())){
+            n1.setText("");
+            n2.setText("");
+            n3.setText("");
+            n4.setText("");
+            pass.setText("");
+            }
+        }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    private void m1(){
+        n1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        n2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        n3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        n4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboPais;
