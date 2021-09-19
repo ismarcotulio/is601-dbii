@@ -62,11 +62,11 @@ public class NewPersona extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        n1 = new javax.swing.JTextField();
+        n2 = new javax.swing.JTextField();
+        n3 = new javax.swing.JTextField();
+        n4 = new javax.swing.JTextField();
+        pass = new javax.swing.JTextField();
         comboRol = new javax.swing.JComboBox<>();
         comboPais = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
@@ -106,20 +106,20 @@ public class NewPersona extends javax.swing.JInternalFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jTextField1.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
+        n1.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
+        n2.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
+        n3.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
 
-        jTextField4.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        n4.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
+        n4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                n4ActionPerformed(evt);
             }
         });
 
-        jTextField5.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        pass.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
 
         comboRol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -154,14 +154,14 @@ public class NewPersona extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Pais", "Codigo", "Número"
+                "Id País", "País", "Codigo", "Número"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -216,7 +216,7 @@ public class NewPersona extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField5))
+                                        .addComponent(pass))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2)
@@ -224,10 +224,10 @@ public class NewPersona extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel1))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField3)
-                                            .addComponent(jTextField2)
-                                            .addComponent(jTextField4)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(n3)
+                                            .addComponent(n2)
+                                            .addComponent(n4)
+                                            .addComponent(n1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jLabel3)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,23 +273,23 @@ public class NewPersona extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(n1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(n2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(n3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(19, 19, 19)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(n4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
@@ -320,9 +320,9 @@ public class NewPersona extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void n4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n4ActionPerformed
         
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_n4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
           addPhoneInTable();
@@ -331,7 +331,7 @@ public class NewPersona extends javax.swing.JInternalFrame {
     private void addPhoneInTable(){
         DefaultTableModel modelo = (DefaultTableModel)tabla1.getModel();
         String[] re = database.getCountry(comboPais.getSelectedItem().toString());
-        modelo.addRow(new Object[] {re[0],re[1],number.getText()});
+        modelo.addRow(new Object[] {re[2],re[0],re[1],number.getText()});
         number.setText("");
     }
     
@@ -365,7 +365,7 @@ public class NewPersona extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_numberKeyReleased
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        database.setPerson(tabla1, n1.getText(), n2.getText(), n3.getText(), n4.getText(), pass.getText(), comboPaisOrigen.getSelectedItem().toString(), comboRol.getSelectedItem().toString());
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
@@ -389,12 +389,12 @@ public class NewPersona extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField n1;
+    private javax.swing.JTextField n2;
+    private javax.swing.JTextField n3;
+    private javax.swing.JTextField n4;
     private javax.swing.JTextField number;
+    private javax.swing.JTextField pass;
     private javax.swing.JTable tabla1;
     // End of variables declaration//GEN-END:variables
 }
