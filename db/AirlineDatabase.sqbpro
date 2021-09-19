@@ -1,9 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Salgado/Desktop/AirlineDatabase.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2748"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainPERSON"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE &quot;PHONE&quot; (
-	&quot;id&quot;	INTEGER NOT NULL,
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Salgado/Desktop/AirlineDatabase/AirlineDatabase.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2714"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainACTIVITY"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE &quot;ACTIVITY&quot; (
+	&quot;id&quot;	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	&quot;name&quot;	TEXT NOT NULL
+);
+
+CREATE TABLE &quot;COUNTRY&quot; (
+	&quot;id&quot;	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	&quot;name&quot;	VARCHAR(50) NOT NULL UNIQUE,
+	&quot;code&quot;	TEXT NOT NULL UNIQUE
+	
+);
+
+CREATE TABLE &quot;ROLE&quot; (
+	&quot;id&quot;	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	&quot;name&quot;	TEXT NOT NULL
+	
+);
+
+CREATE TABLE &quot;PHONE&quot; (
+	&quot;id&quot;	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	&quot;number&quot;	TEXT NOT NULL,
-	&quot;person_fk&quot;	INTEGER NOT NULL,
-	&quot;country_fk&quot; INTEGER NOT NULL
-	PRIMARY KEY(&quot;id&quot;),
-	FOREIGN KEY (person_fk) REFERENCES PERSON(id),
-	FOREIGN KEY (country_fk) REFERENCES COUNTRY(id)
-);</sql><current_tab id="0"/></tab_sql></sqlb_project>
+	&quot;person_FK&quot;	INTEGER NOT NULL,
+	&quot;country_FK&quot;	INTEGER NOT NULL,
+	FOREIGN KEY(&quot;person_FK&quot;) REFERENCES &quot;PERSON&quot;(&quot;id&quot;),
+	FOREIGN KEY(&quot;country_FK&quot;) REFERENCES &quot;COUNTRY&quot;(&quot;id&quot;)
+);
+
+CREATE TABLE &quot;PERSON&quot; (
+	&quot;id&quot;	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	&quot;secretId&quot;	VARCHAR(12) UNIQUE,
+	&quot;passportNumber&quot;	TEXT NOT NULL UNIQUE,
+	&quot;firstName&quot;	TEXT NOT NULL,
+	&quot;middleName&quot;	TEXT NOT NULL,
+	&quot;fisrtSurname&quot;	TEXT NOT NULL,
+	&quot;secondSurname&quot;	TEXT NOT NULL,
+	&quot;role_FK&quot;	INTEGER NOT NULL,
+	&quot;country_FK&quot;	INTEGER NOT NULL,
+	FOREIGN KEY(&quot;role_FK&quot;) REFERENCES &quot;ROLE&quot;(&quot;id&quot;),
+	FOREIGN KEY(&quot;country_FK&quot;) REFERENCES &quot;COUNTRY&quot;(&quot;id&quot;)
+	
+);
+
+CREATE TABLE &quot;CONTROL_LOG&quot; (
+	&quot;id&quot;	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	&quot;dueDateTime&quot;	TEXT NOT NULL,
+	&quot;person_FK&quot;	INTEGER NOT NULL,
+	&quot;activity_FK&quot;	INTEGER NOT NULL,
+	FOREIGN KEY(&quot;person_FK&quot;) REFERENCES &quot;PERSON&quot;(&quot;id&quot;),
+	FOREIGN KEY(&quot;activity_FK&quot;) REFERENCES &quot;ACTIVITY&quot;(&quot;id&quot;)
+	
+);
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
