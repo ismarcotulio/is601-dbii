@@ -159,7 +159,7 @@ public class Database {
             modelo.setRowCount(0);
             return true;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
         }
     }
