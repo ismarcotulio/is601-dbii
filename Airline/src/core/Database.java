@@ -18,7 +18,7 @@ public class Database {
     
     private void  connect() {
    
-        String url = "jdbc:sqlite:chinook.db";
+        String url = "jdbc:sqlite:AirlineDatabase.db";
         
         try {
             this.conn = DriverManager.getConnection(url);
@@ -26,7 +26,8 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-    
+/*  METODO DE EJEMPLO PARA LA SELECCION DE DATOS
+    --------------------------------------------------------------------------
     public void selectAllArtists(){
         String sql = "SELECT ArtistId, Name FROM artists";
         
@@ -34,7 +35,6 @@ public class Database {
              Statement stmt  = this.conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
             
-            // loop through the result set
             while (rs.next()) {
                 System.out.println(
                         rs.getInt("ArtistId") +  "\t\t" + 
@@ -45,22 +45,10 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-    
-    public int getArtistsAutoIncrementId(){
-        String sql = "SELECT ArtistId FROM artists ORDER BY ArtistId DESC LIMIT 1";
-        int id = 0;
-        
-        try (
-             Statement stmt  = this.conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-             id = rs.getInt("ArtistId");
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        
-        return id + 1;
-    }
+*/
+
+/*  METODO DE EJEMPLO PARA LA INSERCION DE DATOS
+    ----------------------------------------------------------------------------
     
     public void insertArtist(String name) {
         String sql = "INSERT INTO artists(Name) VALUES(?)";
@@ -73,4 +61,10 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+*/
+    
+    public void test(){
+        System.out.println("Instancia database funcionando");
+    }
+    
 }

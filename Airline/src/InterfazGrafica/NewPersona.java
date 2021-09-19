@@ -5,17 +5,23 @@
  */
 package InterfazGrafica;
 
+import core.Database;
 /**
  *
  * @author Luis
  */
 public class NewPersona extends javax.swing.JInternalFrame {
+    
+    private Database database;
 
     /**
      * Creates new form NewPersona
+     * @param database
      */
-    public NewPersona() {
+    public NewPersona(Database database) {
         initComponents();
+        this.database = database;
+        this.database.test();
     }
 
     /**

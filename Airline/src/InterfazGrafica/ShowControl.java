@@ -5,6 +5,8 @@
  */
 package InterfazGrafica;
 
+import core.Database;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -14,12 +16,16 @@ import java.text.SimpleDateFormat;
  */
 public class ShowControl extends javax.swing.JInternalFrame {
     private DateFormat format;
+    private Database database;
     /**
      * Creates new form ShowControl
+     * @param database
      */
-    public ShowControl() {
+    public ShowControl(Database database) {
         initComponents();
         format = new SimpleDateFormat("DD/MM/YYYY");
+        this.database = database;
+        this.database.test();
     }
 
     /**

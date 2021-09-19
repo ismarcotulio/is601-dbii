@@ -5,17 +5,22 @@
  */
 package InterfazGrafica;
 
+import core.Database;
 /**
  *
  * @author Luis
  */
 public class EditCountry extends javax.swing.JInternalFrame {
 
+    private Database database;
     /**
      * Creates new form EditCountry
+     * @param database
      */
-    public EditCountry() {
+    public EditCountry(Database database) {
         initComponents();
+        this.database = database;
+        this.database.test();
     }
 
     /**

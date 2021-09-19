@@ -5,18 +5,27 @@
  */
 package InterfazGrafica;
 
+import core.Database;
+
 /**
  *
  * @author Luis
  */
 public class escritorio extends javax.swing.JFrame {
-
+    
+    public Database database;
     /**
      * Creates new form escritorio
      */
     public escritorio() {
-        initComponents();
+        initComponents();   
+        //Instancia de la clase de base de datos para iniciar la conexion y utilizar metodos de manipulacion de datos.
+        this.database = new Database();
+        
         this.setLocationRelativeTo(null);
+        
+         
+        
     }
 
     /**
@@ -145,7 +154,7 @@ public class escritorio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        EditPersona per = new EditPersona();
+        EditPersona per = new EditPersona(database);
         if(!(per.isShowing())){
             esc.add(per);
             per.show();
@@ -153,7 +162,7 @@ public class escritorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        NewPersona per = new NewPersona();
+        NewPersona per = new NewPersona(database);
         if(!(per.isShowing())){
             esc.add(per);
             per.show();
@@ -161,7 +170,7 @@ public class escritorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        NewCountry con = new NewCountry();
+        NewCountry con = new NewCountry(database);
         if(!(con.isShowing())){
             esc.add(con);
             con.show();
@@ -169,7 +178,7 @@ public class escritorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        NewControl con = new NewControl();
+        NewControl con = new NewControl(database);
         if(!(con.isShowing())){
             esc.add(con);
             con.show();
@@ -177,7 +186,7 @@ public class escritorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        ShowControl con = new ShowControl();
+        ShowControl con = new ShowControl(database);
         if(!(con.isShowing())){
             esc.add(con);
             con.show();

@@ -5,17 +5,24 @@
  */
 package InterfazGrafica;
 
+import core.Database;
 /**
  *
  * @author Luis
  */
 public class EditPersona extends javax.swing.JInternalFrame {
 
+    private Database database;
+
     /**
      * Creates new form EditPersona
+     * @param database
      */
-    public EditPersona() {
+    public EditPersona(Database database) {
         initComponents();
+        this.database = database;
+        this.database.test();
+        
     }
 
     /**
@@ -329,8 +336,8 @@ public class EditPersona extends javax.swing.JInternalFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton4))
                 .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
