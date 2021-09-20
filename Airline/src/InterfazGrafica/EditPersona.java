@@ -26,7 +26,6 @@ public class EditPersona extends javax.swing.JInternalFrame {
     private ResultSet personNumbers;
     private ResultSet countries;
     private ResultSet roles;
-    private String caso="";
 
     /**
      * Creates new form EditPersona
@@ -684,12 +683,13 @@ public class EditPersona extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
-        if(!jTextField6.getText().matches("[A-Za-z0-9]*")){
-            jTextField6.setText(this.caso);
-        }else if(jTextField6.getText().length()>12){
-            jTextField6.setText(this.caso);
+        int fieldState = this.editPerson.verifyPhoneField(this.jTextField8.getText().replaceAll("\\s+",""));
+    
+        if(fieldState == 0 && this.jTable1.getSelectedRowCount() != 0){
+            this.jButton5.setEnabled(true);
+            
         }else{
-            this.caso =  jTextField6.getText();
+            this.jButton5.setEnabled(false);
         }
     }//GEN-LAST:event_jTextField6KeyReleased
 
