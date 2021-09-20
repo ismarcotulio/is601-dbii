@@ -61,6 +61,9 @@ public class EditPersona extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
         
+        this.jButton1.setEnabled(false);
+        this.jButton4.setEnabled(false);
+        
     }
 
     /**
@@ -154,12 +157,12 @@ public class EditPersona extends javax.swing.JInternalFrame {
         jTextField3.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Tercer nombre:");
+        jLabel4.setText("Primer Apellido:");
 
         jTextField4.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Cuarto nombre:");
+        jLabel5.setText("Segundo Apellido:");
 
         jTextField5.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +183,7 @@ public class EditPersona extends javax.swing.JInternalFrame {
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText("Empleado:");
+        jLabel7.setText("Rol:");
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -189,12 +192,22 @@ public class EditPersona extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Eliminar persona");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel9.setText("DATOS GENERALES");
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setText("Guardar cambios");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setText("Buscar por clave de acceso");
@@ -451,6 +464,8 @@ public class EditPersona extends javax.swing.JInternalFrame {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        this.jButton1.setEnabled(true);
+        this.jButton4.setEnabled(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -470,6 +485,58 @@ public class EditPersona extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try{
+            this.editPerson.deletePerson(this.person.getInt("personId"));
+            this.persons = this.editPerson.getPersons();
+            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+            model.setRowCount(0);
+            
+            while(this.persons.next()){
+                model.addRow(new Object[]{
+                    this.persons.getInt("id"),
+                    this.persons.getString("firstName"),
+                    this.persons.getString("secretId")
+                });
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        try{
+            this.editPerson.updatePerson(
+                    this.person.getInt("personId"),
+                    this.jTextField6.getText(),
+                    this.jTextField2.getText(),
+                    this.jTextField3.getText(),
+                    this.jTextField4.getText(),
+                    this.jTextField5.getText(),
+                    this.editPerson.getRoleIdByName(this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex()).replaceAll("\\s+","")).getInt("id"),
+                    this.editPerson.getCountryIdByName(this.jComboBox3.getItemAt(this.jComboBox3.getSelectedIndex()).replaceAll("\\s+","")).getInt("id")
+            );
+            
+            
+            this.persons = this.editPerson.getPersons();
+            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+            model.setRowCount(0);
+            
+            while(this.persons.next()){
+                model.addRow(new Object[]{
+                    this.persons.getInt("id"),
+                    this.persons.getString("firstName"),
+                    this.persons.getString("secretId")
+                });
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton4MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
