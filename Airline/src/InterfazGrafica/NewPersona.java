@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public class NewPersona extends javax.swing.JInternalFrame {
     
     private Database database; 
+    private String caso="";
     /**
      * Creates new form NewPersona
      * @param database
@@ -126,6 +127,11 @@ public class NewPersona extends javax.swing.JInternalFrame {
 
         pass.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         pass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passKeyReleased(evt);
+            }
+        });
 
         comboRol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -407,6 +413,16 @@ public class NewPersona extends javax.swing.JInternalFrame {
     private void n1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n1KeyReleased
         
     }//GEN-LAST:event_n1KeyReleased
+
+    private void passKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyReleased
+        if(!pass.getText().matches("[A-Za-z0-9]*")){
+            pass.setText(this.caso);
+        }else if(pass.getText().length()>12){
+            pass.setText(this.caso);
+        }else{
+            this.caso =  pass.getText();
+        }
+    }//GEN-LAST:event_passKeyReleased
     private void m1(){
         n1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         n2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
