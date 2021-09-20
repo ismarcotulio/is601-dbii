@@ -6,22 +6,56 @@
 package InterfazGrafica;
 
 import core.Database;
+import core.AddControl;
+import java.sql.*;
+import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
+import java.util.regex.*;
+import javax.swing.JOptionPane;
 /**
  *
- * @author Luis
+ * @author Marco, Luis
  */
 public class NewControl extends javax.swing.JInternalFrame {
 
-    private Database database;
+    private AddControl addControl;
+    private ResultSet controls;
+    private ResultSet activities;
         
     /**
-     * Creates new form NewControl
+     * Creates new form AddControl
      * @param database
      */
     public NewControl(Database database) {
         initComponents();
-        this.database = database;
-        this.database.test();
+        this.addControl = new AddControl(database.getConn());
+        
+        this.controls = this.addControl.getControls();
+        this.activities = this.addControl.getActivities();
+        
+        
+        DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+        try{
+            while(this.controls.next()){
+                model.addRow(new Object[]{
+                    this.controls.getInt("controlId"),
+                    this.controls.getString("activityName"),
+                    this.controls.getString("personSecretId")
+                });    
+            }
+            
+            this.jComboBox1.removeAllItems();
+            
+            while(this.activities.next()){
+                this.jComboBox1.addItem(this.activities.getString("name"));
+            }
+           
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        this.jButton1.setEnabled(false);
     }
 
     /**
@@ -45,6 +79,12 @@ public class NewControl extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,6 +118,11 @@ public class NewControl extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("AGREGAR");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,6 +189,47 @@ public class NewControl extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        boolean secretIdState = this.addControl.verifySecretId(this.jTextField1.getText().replaceAll("\\s+",""));
+        if(secretIdState){
+            this.jButton1.setEnabled(true);
+        }else{
+            this.jButton1.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try{
+            this.addControl.setControl(
+                this.addControl.getCurrentDateTime(),
+                this.addControl.getPersonBySecretId(
+                        this.jTextField1.getText().replaceAll("\\s+","")
+                ).getInt("id"),
+                this.addControl.getActivityByName(
+                        this.jComboBox1.getItemAt(
+                                this.jComboBox1.getSelectedIndex()
+                        ).replaceAll("\\s+","")
+                ).getInt("id")
+            );
+            
+            this.controls = this.addControl.getControls();
+            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+            model.setRowCount(0);
+            
+            while(this.controls.next()){
+                model.addRow(new Object[]{
+                    this.controls.getInt("controlId"),
+                    this.controls.getString("activityName"),
+                    this.controls.getString("personSecretId")
+                });    
+            }
+            
+        
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
