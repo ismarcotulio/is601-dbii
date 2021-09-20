@@ -149,6 +149,78 @@ public class Database {
             return false;
         }
     }
+    
+    public void showTableControl(JTable ta){
+        DefaultTableModel modelo = (DefaultTableModel)ta.getModel();  
+        try
+        {
+            PreparedStatement p = this.conn.prepareStatement("SELECT CONTROL_LOG.id, PERSON.firstName||' '||PERSON.fisrtSurname as NOMBRE,PERSON.secretId,ACTIVITY.name,CONTROL_LOG.dueDateTime FROM CONTROL_LOG, PERSON, ACTIVITY WHERE CONTROL_LOG.person_FK=PERSON.id AND CONTROL_LOG.activity_FK=ACTIVITY.id");
+            ResultSet re = p.executeQuery();
+            
+            modelo.setRowCount(0);
+            while(re.next())
+            {
+                modelo.addRow(new Object[]{re.getInt("id"),re.getString("NOMBRE"),re.getString("secretId"),re.getString("name"), re.getString("dueDateTime")});
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    public void showTableControl(JTable ta,String code){
+        DefaultTableModel modelo = (DefaultTableModel)ta.getModel();  
+        try
+        {
+            PreparedStatement p = this.conn.prepareStatement("SELECT CONTROL_LOG.id, PERSON.firstName||' '||PERSON.fisrtSurname as NOMBRE,PERSON.secretId,ACTIVITY.name,CONTROL_LOG.dueDateTime FROM CONTROL_LOG, PERSON, ACTIVITY WHERE CONTROL_LOG.person_FK=PERSON.id AND"
+                    +" CONTROL_LOG.activity_FK=ACTIVITY.id AND PERSON.secretId LIKE '%"
+                     +String.format("%s", code)
+                     +"%'");
+            ResultSet re = p.executeQuery();
+            
+            modelo.setRowCount(0);
+            while(re.next())
+            {
+                modelo.addRow(new Object[]{re.getInt("id"),re.getString("NOMBRE"),re.getString("secretId"),re.getString("name"), re.getString("dueDateTime")});
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    public void showTableControlDate(JTable ta,String code){
+        DefaultTableModel modelo = (DefaultTableModel)ta.getModel();  
+        try
+        {
+            PreparedStatement p = this.conn.prepareStatement("SELECT CONTROL_LOG.id, PERSON.firstName||' '||PERSON.fisrtSurname as NOMBRE,PERSON.secretId,ACTIVITY.name,CONTROL_LOG.dueDateTime FROM CONTROL_LOG, PERSON, ACTIVITY WHERE CONTROL_LOG.person_FK=PERSON.id AND"
+                    +" CONTROL_LOG.activity_FK=ACTIVITY.id AND CONTROL_LOG.dueDateTime LIKE '%"
+                     +String.format("%s", code)
+                     +"%'");
+            ResultSet re = p.executeQuery();
+            
+            modelo.setRowCount(0);
+            while(re.next())
+            {
+                modelo.addRow(new Object[]{re.getInt("id"),re.getString("NOMBRE"),re.getString("secretId"),re.getString("name"), re.getString("dueDateTime")});
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    public void deleteControl(int id){ 
+        String sql1 = "DELETE FROM CONTROL_LOG WHERE "
+                      +String.format("id = %d", id);
+        
+        try
+        {
+            System.out.println("imprime id "+id+"   "+sql1);
+            PreparedStatement p = this.conn.prepareStatement(sql1);
+            p.executeUpdate();
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
 /*  METODO DE EJEMPLO PARA LA SELECCION DE DATOS
     --------------------------------------------------------------------------
     public void selectAllArtists(){
