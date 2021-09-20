@@ -6,17 +6,24 @@
 package InterfazGrafica;
 
 import core.Database;
+import core.EditPerson;
 import java.sql.*;
 import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 /**
  *
  * @author Luis
  */
 public class EditPersona extends javax.swing.JInternalFrame {
 
-    private Database database;
+    private EditPerson editPerson;
     private ResultSet persons;
+    private ResultSet person;
+    private ResultSet personNumbers;
+    private ResultSet countries;
+    private ResultSet roles;
    
 
     /**
@@ -25,8 +32,10 @@ public class EditPersona extends javax.swing.JInternalFrame {
      */
     public EditPersona(Database database) {
         initComponents();
-        this.database = database;
-        this.persons = this.database.getPersons();
+        this.editPerson = new EditPerson(database.getConn());
+        this.persons = this.editPerson.getPersons();
+        this.countries = this.editPerson.getCountries();
+        this.roles = this.editPerson.getRoles();
         
         DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
         try{
@@ -36,6 +45,17 @@ public class EditPersona extends javax.swing.JInternalFrame {
                 this.persons.getString("firstName"),
                 this.persons.getString("secretId")
             });
+            }
+            this.jComboBox3.removeAllItems();
+            this.jComboBox1.removeAllItems();
+            this.jComboBox4.removeAllItems();
+            
+            while(this.countries.next()){
+                this.jComboBox3.addItem(this.countries.getString("name"));
+                this.jComboBox4.addItem(this.countries.getString("name"));
+            }
+            while(this.roles.next()){
+                this.jComboBox1.addItem(this.roles.getString("name"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -94,6 +114,11 @@ public class EditPersona extends javax.swing.JInternalFrame {
         jLabel1.setText("Clave:");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,6 +134,11 @@ public class EditPersona extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -381,6 +411,65 @@ public class EditPersona extends javax.swing.JInternalFrame {
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int column = 0;
+        int row = this.jTable1.getSelectedRow();
+        int id = (int)this.jTable1.getModel().getValueAt(row, column);
+        
+        try{
+            this.person = this.editPerson.getPerson(id);
+            this.jTextField2.setText(this.person.getString("firstName"));
+            this.jTextField3.setText(this.person.getString("middleName"));
+            this.jTextField4.setText(this.person.getString("fisrtSurname"));
+            this.jTextField5.setText(this.person.getString("secondSurname"));
+            this.jTextField6.setText(this.person.getString("passportNumber"));
+            
+            
+            this.jComboBox3.setSelectedItem(this.person.getString("countryName"));
+            this.jComboBox1.setSelectedItem(this.person.getString("roleName"));
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        this.personNumbers = this.editPerson.getPersonNumbers(id);
+        
+        
+        DefaultTableModel model2 = (DefaultTableModel) this.jTable2.getModel();
+        model2.setRowCount(0);
+        
+        try{
+            while(this.personNumbers.next()){
+                model2.addRow(new Object[]{
+                this.personNumbers.getInt("phoneId"),
+                this.personNumbers.getString("countryName"),
+                this.personNumbers.getString("countryCode"),
+                this.personNumbers.getString("number")
+            });
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        this.persons = this.editPerson.searchPersons(this.jTextField1.getText());
+        
+        DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+        model.setRowCount(0);
+        try{
+            while(this.persons.next()){
+                model.addRow(new Object[]{
+                    this.persons.getInt("id"),
+                    this.persons.getString("firstName"),
+                    this.persons.getString("secretId")
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -84,20 +84,6 @@ public class Database {
         }
     }
     
-    public ResultSet getPersons(){
-        String sql = "SELECT id, firstName, secretId FROM PERSON";
-    
-        try {
-             Statement stmt  = this.conn.createStatement();
-             return stmt.executeQuery(sql);
-             
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        
-        return null;
-    }
-    
     public boolean setPerson(JTable phone,String n1,String n2,String n3,String n4,String pass, String pais,String rol){
         
         Calendar ca = Calendar.getInstance();
