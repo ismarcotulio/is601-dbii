@@ -176,6 +176,41 @@ public class EditPerson {
         }
         return null; 
     }
+    
+    public int verifyPersonFields(String firstName, String firstSurname, String passportNumber, String secondName, String secondSurname){
+        if(firstName.matches("") == false && firstSurname.matches("") == false && passportNumber.matches("") == false ){
+            if(firstName.matches("[A-Za-z]*")){
+                if(firstSurname.matches("[A-Za-z]*")){
+                    if(firstSurname.matches("([A-Za-z0-9-])*")){
+                        if(secondName.matches("[A-Za-z]*")){
+                            if(secondSurname.matches("[A-Za-z]*")){
+                                //CAMPOS VALIDOS
+                                return 0;
+                            }else{
+                                //CODIGO DE ERROR 6, campo secondSurname invalido
+                                return 6;
+                            }
+                        }else{
+                            //CODIGO DE ERROR 5, campo secondName invalido
+                            return 5;
+                        }
+                    }else{
+                        //CODIGO DE ERROR 4, campo passportNumber invalido
+                        return 4;
+                    }
+                }else{
+                    //CODIGO DE ERROR 3, campo firstSurname invalido
+                    return 3;
+                }
+            }else{
+                //CODIGO DE ERROR 2, campo firstname invalido
+                return 2;
+            }
+        }else{
+            //CODIGO DE ERROR 1, campos vacios
+            return 1;
+        }
+    }
 
     
 }

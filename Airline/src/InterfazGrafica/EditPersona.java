@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.*;
+import java.util.regex.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Luis
@@ -63,6 +65,7 @@ public class EditPersona extends javax.swing.JInternalFrame {
         
         this.jButton1.setEnabled(false);
         this.jButton4.setEnabled(false);
+        this.jButton6.setEnabled(false);
         
     }
 
@@ -147,7 +150,7 @@ public class EditPersona extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Primer nombre:");
+        jLabel2.setText("*Primer nombre:");
 
         jTextField2.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
 
@@ -157,7 +160,7 @@ public class EditPersona extends javax.swing.JInternalFrame {
         jTextField3.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Primer Apellido:");
+        jLabel4.setText("*Primer Apellido:");
 
         jTextField4.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
 
@@ -172,7 +175,7 @@ public class EditPersona extends javax.swing.JInternalFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Numero de pasaporte:");
+        jLabel6.setText("*Numero de pasaporte:");
 
         jTextField6.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
 
@@ -250,6 +253,11 @@ public class EditPersona extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jTable2);
@@ -487,6 +495,7 @@ public class EditPersona extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+
         try{
             this.editPerson.deletePerson(this.person.getInt("personId"));
             this.persons = this.editPerson.getPersons();
@@ -508,35 +517,58 @@ public class EditPersona extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        try{
-            this.editPerson.updatePerson(
-                    this.person.getInt("personId"),
-                    this.jTextField6.getText(),
-                    this.jTextField2.getText(),
-                    this.jTextField3.getText(),
-                    this.jTextField4.getText(),
-                    this.jTextField5.getText(),
-                    this.editPerson.getRoleIdByName(this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex()).replaceAll("\\s+","")).getInt("id"),
-                    this.editPerson.getCountryIdByName(this.jComboBox3.getItemAt(this.jComboBox3.getSelectedIndex()).replaceAll("\\s+","")).getInt("id")
-            );
-            
-            
-            this.persons = this.editPerson.getPersons();
-            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
-            model.setRowCount(0);
-            
-            while(this.persons.next()){
-                model.addRow(new Object[]{
-                    this.persons.getInt("id"),
-                    this.persons.getString("firstName"),
-                    this.persons.getString("secretId")
-                });
+        int fieldState = this.editPerson.verifyPersonFields(
+                this.jTextField2.getText().replaceAll("\\s+",""),
+                this.jTextField4.getText().replaceAll("\\s+",""),
+                this.jTextField6.getText().replaceAll("\\s+",""),
+                this.jTextField3.getText().replaceAll("\\s+",""),
+                this.jTextField5.getText().replaceAll("\\s+","")
+        );
+        
+        if(fieldState == 0){
+            try{
+                this.editPerson.updatePerson(
+                        this.person.getInt("personId"),
+                        this.jTextField6.getText(),
+                        this.jTextField2.getText(),
+                        this.jTextField3.getText(),
+                        this.jTextField4.getText(),
+                        this.jTextField5.getText(),
+                        this.editPerson.getRoleIdByName(this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex()).replaceAll("\\s+","")).getInt("id"),
+                        this.editPerson.getCountryIdByName(this.jComboBox3.getItemAt(this.jComboBox3.getSelectedIndex()).replaceAll("\\s+","")).getInt("id")
+                );
+
+
+                this.persons = this.editPerson.getPersons();
+                DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+                model.setRowCount(0);
+
+                while(this.persons.next()){
+                    model.addRow(new Object[]{
+                        this.persons.getInt("id"),
+                        this.persons.getString("firstName"),
+                        this.persons.getString("secretId")
+                    });
+                }
+
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
             }
-            
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
+        }else{
+            if(fieldState == 1){JOptionPane.showMessageDialog(null, "Porfavor llenar todos los campos con *","Swing Tester", JOptionPane.WARNING_MESSAGE);}
+            if(fieldState == 2){JOptionPane.showMessageDialog(null, "Campo primer nombre invalido","Swing Tester", JOptionPane.WARNING_MESSAGE);}
+            if(fieldState == 3){JOptionPane.showMessageDialog(null, "Campo primer apellido invalido","Swing Tester", JOptionPane.WARNING_MESSAGE);}
+            if(fieldState == 4){JOptionPane.showMessageDialog(null, "Campo numero de pasaporte invalido","Swing Tester", JOptionPane.WARNING_MESSAGE);}
+            if(fieldState == 5){JOptionPane.showMessageDialog(null, "Campo segundo nombre invalido","Swing Tester", JOptionPane.WARNING_MESSAGE);}
+            if(fieldState == 6){JOptionPane.showMessageDialog(null, "campo segundo apellido invalido","Swing Tester", JOptionPane.WARNING_MESSAGE);}
         }
+       
+        
     }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        this.jButton4.setEnabled(true);
+    }//GEN-LAST:event_jTable2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
