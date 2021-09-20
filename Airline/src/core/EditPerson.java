@@ -181,7 +181,7 @@ public class EditPerson {
         if(firstName.matches("") == false && firstSurname.matches("") == false && passportNumber.matches("") == false ){
             if(firstName.matches("[A-Za-z]*")){
                 if(firstSurname.matches("[A-Za-z]*")){
-                    if(firstSurname.matches("([A-Za-z0-9-])*")){
+                    if(passportNumber.matches("[A-Za-z0-9-]{12}")){
                         if(secondName.matches("[A-Za-z]*")){
                             if(secondSurname.matches("[A-Za-z]*")){
                                 //CAMPOS VALIDOS
