@@ -6,21 +6,48 @@
 package InterfazGrafica;
 
 import core.Database;
+import java.sql.ResultSet;
+import core.EditCountry;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Luis
  */
-public class EditCountry extends javax.swing.JInternalFrame {
+public class EditPais extends javax.swing.JInternalFrame {
+    
+    private EditCountry editCountry;
+    private ResultSet countrys;
+    private ResultSet country;
 
     private Database database;
     /**
      * Creates new form EditCountry
      * @param database
      */
-    public EditCountry(Database database) {
+    public EditPais(Database database) {
         initComponents();
-        this.database = database;
-        this.database.test();
+        this.editCountry = new EditCountry(database.getConn());
+        this.countrys = this.editCountry.getCountrys();
+        
+        DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+        try{
+            while(this.countrys.next()){
+                model.addRow(new Object[]{
+                this.countrys.getInt("id"),
+                this.countrys.getString("name"),
+                this.countrys.getString("code")
+            });
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        this.jButton1.setEnabled(false);
+        this.jButton2.setEnabled(false);
+        this.jButton3.setEnabled(false);
+        
     }
 
     /**
@@ -195,6 +222,93 @@ public class EditCountry extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        this.countrys = this.editCountry.searchCountrys(this.jTextField1.getText());
+        
+        DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+        model.setRowCount(0);
+        try{
+            while(this.countrys.next()){
+                model.addRow(new Object[]{
+                    this.countrys.getInt("id"),
+                    this.countrys.getString("name"),
+                    this.countrys.getString("code")
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
+    
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+               
+        int column = 0;
+        int row = this.jTable1.getSelectedRow();
+        int id = (int)this.jTable1.getModel().getValueAt(row, column);
+        
+        try{
+            this.country = this.editCountry.getCountry(id);
+            this.jTextField2.setText(this.country.getString("name"));
+            this.jTextField3.setText(this.country.getString("code"));
+
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        this.jButton1.setEnabled(true);
+        this.jButton3.setEnabled(true);
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try{
+            this.editCountry.updateCountry(
+                    this.country.getInt("id"),
+                    this.jTextField2.getText(),
+                    this.jTextField3.getText()
+            );
+            
+            
+            this.countrys = this.editCountry.getCountrys();
+            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+            model.setRowCount(0);
+            
+            while(this.countrys.next()){
+                model.addRow(new Object[]{
+                    this.countrys.getInt("id"),
+                    this.countrys.getString("name"),
+                    this.countrys.getString("code")
+                });
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        try{
+            this.editCountry.deleteCountry(this.country.getInt("id"));
+            this.countrys = this.editCountry.getCountrys();
+            DefaultTableModel model = (DefaultTableModel) this.jTable1.getModel();
+            model.setRowCount(0);
+            
+            while(this.countrys.next()){
+                model.addRow(new Object[]{
+                    this.countrys.getInt("id"),
+                    this.countrys.getString("name"),
+                    this.countrys.getString("code")
+                });
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
+ 
+        
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
