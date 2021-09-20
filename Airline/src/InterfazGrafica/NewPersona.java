@@ -390,7 +390,7 @@ public class NewPersona extends javax.swing.JInternalFrame {
         }else if("".equals(n4.getText())){
             m1();
             n4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
-        }else if("".equals(pass.getText())){
+        }else if(!pass.getText().matches("[A-Za-z0-9]{12}") || "".equals(pass.getText())){
             m1();
             pass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
         }else{
