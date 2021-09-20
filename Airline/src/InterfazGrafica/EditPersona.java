@@ -26,7 +26,7 @@ public class EditPersona extends javax.swing.JInternalFrame {
     private ResultSet personNumbers;
     private ResultSet countries;
     private ResultSet roles;
-   
+    private String caso="";
 
     /**
      * Creates new form EditPersona
@@ -179,6 +179,11 @@ public class EditPersona extends javax.swing.JInternalFrame {
         jLabel6.setText("*Numero de pasaporte:");
 
         jTextField6.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField6KeyReleased(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Pais de origen:");
@@ -677,6 +682,16 @@ public class EditPersona extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jTextField6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyReleased
+        if(!jTextField6.getText().matches("[A-Za-z0-9]*")){
+            jTextField6.setText(this.caso);
+        }else if(jTextField6.getText().length()>12){
+            jTextField6.setText(this.caso);
+        }else{
+            this.caso =  jTextField6.getText();
+        }
+    }//GEN-LAST:event_jTextField6KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

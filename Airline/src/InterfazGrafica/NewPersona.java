@@ -84,16 +84,16 @@ public class NewPersona extends javax.swing.JInternalFrame {
         jLabel2.setText("Segundo Nombre:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("*Tercer nombre:");
+        jLabel3.setText("*Tercer Apellido:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Cuarto nombre:");
+        jLabel4.setText("Cuarto Apellido:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Numero de pasaporte:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Rol de la persona");
+        jLabel6.setText("Rol de la persona:");
 
         jLabel7.setFont(new java.awt.Font("Aharoni", 0, 24)); // NOI18N
         jLabel7.setText("Registro del Cliente");
@@ -203,7 +203,7 @@ public class NewPersona extends javax.swing.JInternalFrame {
         jButton3.setBackground(new java.awt.Color(204, 255, 204));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(153, 0, 0));
-        jButton3.setText("Agregar cliente");
+        jButton3.setText("AGREGAR CLIENTE");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
