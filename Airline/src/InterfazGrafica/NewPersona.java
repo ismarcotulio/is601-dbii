@@ -7,14 +7,6 @@ package InterfazGrafica;
 
 import core.Database;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Calendar;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -34,8 +26,6 @@ public class NewPersona extends javax.swing.JInternalFrame {
         llenadoComboPais();
         llenadoComboRol();
         this.setLocation(100, 50);
-        String g="mario";
-        System.out.println(g.charAt(0));
     }
     
     private void llenadoComboPais(){
@@ -87,13 +77,13 @@ public class NewPersona extends javax.swing.JInternalFrame {
         setIconifiable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Primer nombre:");
+        jLabel1.setText("*Primer nombre:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Segundo Nombre:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Tercer nombre:");
+        jLabel3.setText("*Tercer nombre:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Cuarto nombre:");
@@ -111,6 +101,14 @@ public class NewPersona extends javax.swing.JInternalFrame {
 
         n1.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
         n1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        n1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                n1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                n1KeyTyped(evt);
+            }
+        });
 
         n2.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
         n2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -401,6 +399,14 @@ public class NewPersona extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void n1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n1KeyTyped
+        
+    }//GEN-LAST:event_n1KeyTyped
+
+    private void n1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n1KeyReleased
+        
+    }//GEN-LAST:event_n1KeyReleased
     private void m1(){
         n1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         n2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
