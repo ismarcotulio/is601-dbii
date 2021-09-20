@@ -5,7 +5,15 @@
  */
 package InterfazGrafica;
 
+import core.AddCountry;
 import core.Database;
+import java.sql.*;
+import core.Database;
+import core.EditPerson;
+import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 /**
  *
@@ -14,6 +22,7 @@ import core.Database;
 public class NewCountry extends javax.swing.JInternalFrame {
 
     private Database database;
+    private AddCountry NewCountry ;
     
     /**
      * Creates new form NewCountry
@@ -23,8 +32,8 @@ public class NewCountry extends javax.swing.JInternalFrame {
     
     public NewCountry(Database database) {
         initComponents();
-        this.database = database;
-        this.database.test();
+        this.NewCountry = new AddCountry(database.getConn());
+        
     }
 
     /**
@@ -62,6 +71,11 @@ public class NewCountry extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Agregar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,6 +131,13 @@ public class NewCountry extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        this.NewCountry.insert(this.jTextField1.getText(),this.jTextField2.getText());
+        
+          this.jTextField1.setText("");
+          this.jTextField2.setText("");
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
