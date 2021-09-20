@@ -211,6 +211,64 @@ public class EditPerson {
             return 1;
         }
     }
+    
+    public int verifyPhoneField(String phone){
+        if(phone.matches("") == false){
+            if(phone.matches("[0-9-]*")){
+                //CAMPO VALIOO
+                return 0;
+            }else{
+                //CODIGO DE ERROR 2, campo invalido
+                return 2;
+            }
+        }else{
+            //CODIGO DE ERROR 1, campos vacios
+            return 1;
+        }
+    }
+    
+    public void setPhone(String number, int personId, int countryId){
+        String sql = "INSERT INTO PHONE(number, person_FK, country_FK) VALUES("
+                +String.format("'%s', ", number)
+                +String.format("'%s', ", personId)
+                +String.format("'%s' ", countryId)
+                +")"
+                ;
+                     
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void deletePhone(int id){
+        String sql = "DELETE FROM PHONE WHERE "
+                      +String.format("id = %d", id);
+        
+        try {
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             pstmt.executeUpdate();
+             
+             
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }     
+    }
+    
+    public ResultSet getPhone(int idPerson, String number){
+        String sql =  "SELECT id FROM PHONE "
+                      +String.format("WHERE person_FK = %d AND ", idPerson)
+                      +String.format("number = '%s' ", number);
+        try {
+             Statement stmt  = this.conn.createStatement();
+             return stmt.executeQuery(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null; 
+    }
 
     
 }

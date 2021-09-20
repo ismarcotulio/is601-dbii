@@ -16,7 +16,7 @@ import java.util.regex.*;
 import javax.swing.JOptionPane;
 /**
  *
- * @author Luis
+ * @author Marco, Luis
  */
 public class EditPersona extends javax.swing.JInternalFrame {
 
@@ -66,6 +66,7 @@ public class EditPersona extends javax.swing.JInternalFrame {
         this.jButton1.setEnabled(false);
         this.jButton4.setEnabled(false);
         this.jButton6.setEnabled(false);
+        this.jButton5.setEnabled(false);
         
     }
 
@@ -222,13 +223,28 @@ public class EditPersona extends javax.swing.JInternalFrame {
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jTextField8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField8KeyReleased(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("País:");
 
         jButton5.setText("Ingresar");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         jButton6.setText("Eliminar");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -474,6 +490,13 @@ public class EditPersona extends javax.swing.JInternalFrame {
         }
         this.jButton1.setEnabled(true);
         this.jButton4.setEnabled(true);
+        
+        int phoneFieldState = this.editPerson.verifyPhoneField(this.jTextField8.getText().replaceAll("\\s+",""));
+        if(phoneFieldState == 0){
+            this.jButton5.setEnabled(true);
+        }else{
+            this.jButton5.setEnabled(false);
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
@@ -509,6 +532,22 @@ public class EditPersona extends javax.swing.JInternalFrame {
                     this.persons.getString("secretId")
                 });
             }
+            
+            this.jButton1.setEnabled(false);
+            this.jButton4.setEnabled(false);
+            this.jButton5.setEnabled(false);
+            this.jButton6.setEnabled(false);
+            this.jTextField1.setText("");
+            this.jTextField2.setText("");
+            this.jTextField3.setText("");
+            this.jTextField4.setText("");
+            this.jTextField5.setText("");
+            this.jTextField6.setText("");
+            this.jTextField8.setText("");
+            
+            DefaultTableModel model2 = (DefaultTableModel) this.jTable2.getModel();
+            model2.setRowCount(0);
+            
             
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -568,7 +607,76 @@ public class EditPersona extends javax.swing.JInternalFrame {
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         this.jButton4.setEnabled(true);
+        this.jButton6.setEnabled(true);
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        try{
+            this.editPerson.setPhone(
+                this.jTextField8.getText(),
+                this.person.getInt("personId"),
+                this.editPerson.getCountryIdByName(this.jComboBox3.getItemAt(this.jComboBox4.getSelectedIndex()).replaceAll("\\s+","")).getInt("id")
+            );
+            
+            this.personNumbers = this.editPerson.getPersonNumbers(this.person.getInt("personId"));
+        
+        
+            DefaultTableModel model2 = (DefaultTableModel) this.jTable2.getModel();
+            model2.setRowCount(0);
+            
+             while(this.personNumbers.next()){
+                model2.addRow(new Object[]{
+                    this.personNumbers.getInt("phoneId"),
+                    this.personNumbers.getString("countryName"),
+                    this.personNumbers.getString("countryCode"),
+                    this.personNumbers.getString("number")
+                });
+            }
+            this.jTextField8.setText("");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jTextField8KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyReleased
+        int fieldState = this.editPerson.verifyPhoneField(this.jTextField8.getText().replaceAll("\\s+",""));
+    
+        if(fieldState == 0 && this.jTable1.getSelectedRowCount() != 0){
+            this.jButton5.setEnabled(true);
+            
+        }else{
+            this.jButton5.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTextField8KeyReleased
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        try{
+            int column = 0;
+            int row = this.jTable2.getSelectedRow();
+            int id = (int)this.jTable2.getModel().getValueAt(row, column);
+            this.editPerson.deletePhone(id);
+            
+            this.personNumbers = this.editPerson.getPersonNumbers(this.person.getInt("personId"));
+        
+        
+            DefaultTableModel model2 = (DefaultTableModel) this.jTable2.getModel();
+            model2.setRowCount(0);
+            
+            while(this.personNumbers.next()){
+                model2.addRow(new Object[]{
+                    this.personNumbers.getInt("phoneId"),
+                    this.personNumbers.getString("countryName"),
+                    this.personNumbers.getString("countryCode"),
+                    this.personNumbers.getString("number")
+                });
+            }
+            
+            this.jButton6.setEnabled(false);
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jButton6MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
