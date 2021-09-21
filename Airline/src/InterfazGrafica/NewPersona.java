@@ -113,15 +113,30 @@ public class NewPersona extends javax.swing.JInternalFrame {
 
         n2.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
         n2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        n2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                n2KeyTyped(evt);
+            }
+        });
 
         n3.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
         n3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        n3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                n3KeyTyped(evt);
+            }
+        });
 
         n4.setFont(new java.awt.Font("Vrinda", 1, 14)); // NOI18N
         n4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         n4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 n4ActionPerformed(evt);
+            }
+        });
+        n4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                n4KeyTyped(evt);
             }
         });
 
@@ -378,16 +393,16 @@ public class NewPersona extends javax.swing.JInternalFrame {
 
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if("".equals(n1.getText())){
+        if(!n1.getText().matches("[A-Za-z]*[\\s]{0,1}[A-Za-z]*")||"".equals(n1.getText())){
             m1();
             n1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
-        }else if("".equals(n2.getText())){
+        }else if(!n2.getText().matches("[A-Za-z]*[\\s]{0,1}[A-Za-z]*")||"".equals(n2.getText())){
             m1();
             n2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
-        }else if("".equals(n3.getText())){
+        }else if(!n3.getText().matches("[A-Za-z]*[\\s]{0,1}[A-Za-z]*")||"".equals(n3.getText())){
             m1();
             n3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
-        }else if("".equals(n4.getText())){
+        }else if(!n4.getText().matches("[A-Za-z]*[\\s]{0,1}[A-Za-z]*")||"".equals(n4.getText())){
             m1();
             n4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
         }else if(!pass.getText().matches("[A-Za-z0-9]{12}") || "".equals(pass.getText())){
@@ -423,6 +438,18 @@ public class NewPersona extends javax.swing.JInternalFrame {
             this.caso =  pass.getText();
         }
     }//GEN-LAST:event_passKeyReleased
+
+    private void n2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n2KeyTyped
+        
+    }//GEN-LAST:event_n2KeyTyped
+
+    private void n3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n3KeyTyped
+        
+    }//GEN-LAST:event_n3KeyTyped
+
+    private void n4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_n4KeyTyped
+       
+    }//GEN-LAST:event_n4KeyTyped
     private void m1(){
         n1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         n2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
